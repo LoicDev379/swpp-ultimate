@@ -1,3 +1,46 @@
 body {
-    background: #000;
+    background: #fff;
 }
+
+.page-header{
+    margin-top:12vh;
+}
+
+.jumbotron{
+    margin: 12vh 0;
+    padding: 30px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+div .jumbotron {
+    margin-bottom: 2rem;
+    padding: 2rem 1rem;
+}
+
+.microtime{
+    position:fixed;
+    bottom:0;
+    text-align:right;
+    background:#A8FFD2;
+    color:#000;
+    line-height:30px;
+    height:30px;
+    left:0;
+    right:0;
+    padding-right:15px   
+}
+
+/* .microtime{
+    position: fixed;
+    bottom: 0;
+    background: #900;
+    color: #fff;
+    line-height: 30px;
+    height: 30px;
+    left: 0; right: 0;
+    padding-left: 10px;
+    text-align: right;
+} */

@@ -1,8 +1,5 @@
 <?php
 
-use Router;
-use Request;
-
 class Dispatcher
 {
     private object $request;
@@ -12,8 +9,8 @@ class Dispatcher
         $this->request = new Request();
         Router::parse($this->request->url, $this->request);
         $controller = $this->loadController();
-        if (!in_array($this->request->action, get_class_methods($controller))) {
-            $this->error("Le controller <b>" . $this->request->controller . "</b> n'a pas de methode <b>" . $this->request->action. "</b>");
+        if (!in_array($this->request->action, array_diff(get_class_methods($controller), get_class_methods(get_parent_class($controller))))) {
+            $this->error("Le controller <b>" . $this->request->controller . "</b> n'a pas de methode <b>" . $this->request->action . "</b>");
         }
         call_user_func_array([$controller, $this->request->action], $this->request->params);
         $controller->render($this->request->action);
@@ -28,11 +25,8 @@ class Dispatcher
 
     public function error($message)
     {
-        header("HTTP/1.0 404 Not Found");
         $controller = new Controller($this->request);
-        $controller->set("message", $message);
-        $controller->render("/errors/404");
-        die();
+        $controller->e404($message);
     }
 }
 
