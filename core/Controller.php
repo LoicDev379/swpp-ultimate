@@ -5,7 +5,7 @@ class Controller
     private array $vars         = [];            // Variables a passer a la vue
     private string $layout      = "default";     // Layout a utiliser pour rendre la vue
     private $rendered           = false;         // Pour savoir si la vue a deja ete rendue
-    protected object $request;                   // Object request
+    public object $request;                   // Object request
 
     /**
      * Constructeur
@@ -103,7 +103,7 @@ class Controller
      * @param int $code     | Code de redirection
      * @return void
      */
-    public function redirect($url, $code)
+    public function redirect(string $url, int $code = NULL)
     {
         if ($code == 301) {
             header("HTTP/1.1 Moved Permanently");

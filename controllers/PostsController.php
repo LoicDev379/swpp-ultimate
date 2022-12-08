@@ -33,4 +33,39 @@ class PostsController extends Controller
             $this->redirect("posts/view/id:$id/slug:" . $d["post"]->slug, 301);
         }
     }
+
+    public function admin_index()
+    {
+        $perPage = 10;
+        $this->loadModel("Post");
+        $conditions = ["type" => "post"];
+        $d["posts"] = $this->Post->findAll([
+            "fields" => "id, title, online",
+            "conditions" => $conditions,
+            "limit" => ($perPage * ($this->request->page - 1) . ", " . $perPage)
+        ]);
+        $d["total"] = $this->Post->findCount($conditions);
+        $d["nbrePages"] = ceil($d["total"] / $perPage);
+        $this->set($d);
+    }
+
+    public function admin_edit($id = NULL)
+    {
+        $this->loadModel("Post");
+        if ($this->request->data) {
+            $this->Post->save($this->request->data);
+            $id = $this->Post->id;
+        }
+        $this->request->data = $this->Post->findFirst([
+            "conditions" => ["id" => $id]
+        ]);
+    }
+
+    public function admin_delete($id)
+    {
+        $this->loadModel("Post");
+        $this->Post->delete($id);
+        $this->Session->setFlash("Le contenu a bien été supprimé");
+        $this->redirect("admin/posts/index");
+    }
 }

@@ -9,23 +9,35 @@ class Dispatcher
         $this->request = new Request();
         Router::parse($this->request->url, $this->request);
         $controller = $this->loadController();
-        if (!in_array($this->request->action, array_diff(get_class_methods($controller), get_class_methods(get_parent_class($controller))))) {
-            $this->error("Le controller <b>" . $this->request->controller . "</b> n'a pas de methode <b>" . $this->request->action . "</b>");
+
+        $action = $this->request->action;
+        if ($this->request->prefix) {
+            $action = $this->request->prefix . "_" . $action;
         }
-        call_user_func_array([$controller, $this->request->action], $this->request->params);
-        $controller->render($this->request->action);
+
+        if (!in_array($action, array_diff(get_class_methods($controller), get_class_methods(get_parent_class($controller))))) {
+            $this->error("Le controller <b>" . $this->request->controller . "</b> n'a pas de methode <b>" . $action . "</b>");
+        }
+        call_user_func_array([$controller, $action], $this->request->params);
+        $controller->render($action);
     }
 
     public function loadController()
     {
         $controllerName = ucfirst($this->request->controller) . "Controller";
         require ROOT . "controllers" . DS . $controllerName . ".php";
-        return new $controllerName($this->request);
+        $controller = new $controllerName($this->request);
+        // Initialisation d'une nouvelle session
+        $controller->Session = new Session();
+        $controller->Form = new Form($controller);
+
+        return $controller;
     }
 
     public function error($message)
     {
         $controller = new Controller($this->request);
+        $controller->Session = new Session();
         $controller->e404($message);
     }
 }

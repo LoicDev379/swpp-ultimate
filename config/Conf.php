@@ -17,6 +17,7 @@ class Conf
 // Router::connect("/post/:slug-:id", "posts/view/id:(?P<id>[0-9]+)/slug:(?P<slug>[a-z0-9\-]*)");
 // Router::connect("post/:slug-:id", "posts/view/id:([0-9]+)/slug:([a-z0-9\-]+)");
 
-// Router::connect("/", "posts/index");
+Router::prefix("swppklj", "admin");
+Router::connect("/", "blog/index");
 Router::connect("blog/:slug-:id", "posts/view/id:([0-9]+)/slug:([a-z0-9\-]+)");
 Router::connect("blog/:action", "posts/:action");   // Pour rediriger tous le controller "posts" sur "blog"

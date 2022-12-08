@@ -1,36 +1,46 @@
 body {
-    background: #fff;
+  background: #fff;
 }
 
-.page-header{
-    margin-top:12vh;
+/* body>nav:nth-child(1) {
+    position:fixed; 
+    top:0%; 
+    width:100%;
+} */
+
+.flash {
+  margin: 0;
 }
 
-.jumbotron{
-    margin: 12vh 0;
-    padding: 30px;
+.page-header {
+  margin-top: 2vh;
+}
+
+.jumbotron {
+  margin: 2vh 0;
+  padding: 30px;
 }
 
 a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 div .jumbotron {
-    margin-bottom: 2rem;
-    padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  padding: 2rem 1rem;
 }
 
-.microtime{
-    position:fixed;
-    bottom:0;
-    text-align:right;
-    background:#A8FFD2;
-    color:#000;
-    line-height:30px;
-    height:30px;
-    left:0;
-    right:0;
-    padding-right:15px   
+.microtime {
+  position: fixed;
+  bottom: 0;
+  text-align: right;
+  background: #a8ffd2;
+  color: #000;
+  line-height: 30px;
+  height: 30px;
+  left: 0;
+  right: 0;
+  padding-right: 15px;
 }
 
 /* .microtime{

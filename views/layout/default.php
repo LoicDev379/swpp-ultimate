@@ -17,7 +17,7 @@
 <body>
 
     <!-- Navbar pour le layout par default -->
-    <nav style="position:fixed; top:0%; width:100%;" class="navbar navbar-expand-sm bg-light">
+    <nav class="navbar navbar-expand-sm bg-light">
         <div class="container">
             <h5 class="title"><a href="#" class="nav-link" title="Accueil">SwPp-UlTiMaTe</a></h5>
             <ul class="navbar-nav">
@@ -34,7 +34,8 @@
     </nav>
 
     <div class="container">
-        <?= $content_for_layout ?>
+        <p><?= $this->Session->flash(); ?></p>
+        <?= $content_for_layout; ?>
     </div>
 
 </body>

@@ -20,6 +20,7 @@ function debug($var)
         echo "</ol>";
         echo "<div class='jumbotron'><pre>";
         print_r($var);
+        // var_dump($var);
         echo "</pre></div>";
     }
 }

@@ -7,6 +7,7 @@ class Model
     public object $db;
     public $table = false;
     public $primaryKey = "id";
+    public $id;
 
     public function __construct()
     {
@@ -112,5 +113,32 @@ class Model
             "conditions" => $conditions
         ]);
         return $res->count;
+    }
+
+    public function save($data)
+    {
+        $key = $this->primaryKey;
+
+        $fields = [];
+        $d = [];
+        foreach ($data as $k => $v) {
+            $fields[] = " $k=:$k";
+            $d[":$k"] = $v;
+        }
+
+        if (isset($data->$key) && !empty($data->$key)) {
+            $sql = "UPDATE {$this->table} SET" . implode(',', $fields) . " WHERE {$key}=:{$key}";
+            $this->id = $this->$key;
+        }
+        $pre = $this->db->prepare($sql);
+        $pre->execute($d);
+        $this->id = $this->db->lastInsertId();
+    }
+
+    public function delete($id)
+    {
+        $sql = "DELETE FROM {$this->table} WHERE {$this->primaryKey} =" . $id;
+        $this->db->query($sql);
+        // $pre->execute();
     }
 }
